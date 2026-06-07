@@ -1,0 +1,31 @@
+package com.yourfiles.manager.domain.repository
+
+import com.yourfiles.manager.data.model.LocalFile
+import kotlinx.coroutines.flow.Flow
+import org.intellij.lang.annotations.Pattern
+
+interface LocalFilesRepo {
+
+    suspend fun insertFile(localFile: LocalFile)
+
+    suspend fun insertAll(localFiles: List<LocalFile>)
+
+    fun getAllFiles(): Flow<List<LocalFile>>
+
+    suspend fun deleteFile(id: String)
+
+    suspend fun deleteFiles(ids: List<String>)
+
+    fun getFilesViaQuery(query: String): Flow<List<LocalFile>>
+
+    fun fileAlreadyExists(md5: String) : Boolean
+
+    suspend fun getFileById(id: String): LocalFile?
+
+    fun getDuplicateMediaFiles(): Flow<List<LocalFile>>
+
+    fun getDuplicateCopies(): Flow<List<LocalFile>>
+
+    fun getFilesSizeSumViaQuery(query: String): Flow<Long>
+    suspend fun applyOptimisationResults(results: List<Pair<String, Long>>)
+}
